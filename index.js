@@ -1,4 +1,5 @@
 'use strict';
+const path = require('path');
 const electron 	= 	require('electron');
 const app 		= 	electron.app;
 const ppapi    	= 	require("./js/ppapi");
@@ -23,11 +24,18 @@ app.commandLine.appendSwitch('ppapi-flash-version', ppapi.getVersion());
 
 
 function createMainWindow() {
+	const width  = 380;
+	const height = 665;
+
 	const win = new electron.BrowserWindow({
-		width: 380,
-		height: 665,
-		'accept-first-mouse': true,
-    'title-bar-style': 'hidden',
+		width: width,
+		height: height,
+		minWidth: width,
+		minHeight: height,
+		maxWidth:width,
+		maxHeight:height,
+		icon: process.platform === 'linux' && path.join(__dirname, 'img/icon.png'),
+    titleBarStyle: 'hidden-inset',
 		webPreferences: {
       		plugins: true
     	}
